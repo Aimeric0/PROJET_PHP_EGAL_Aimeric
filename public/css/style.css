@@ -1,0 +1,93 @@
+/* Body général */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #191c24; /* indigo1 */
+    color: #9fa4e2; /* indigo10 pour le texte */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container principal */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #232634; /* indigo3 */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Titres */
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #8189c4; /* indigo9 */
+    margin-bottom: 30px;
+}
+
+/* Labels des formulaires */
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #9fa4e2; /* indigo10 */
+}
+
+/* Inputs */
+form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #4d5270; /* indigo7 */
+    background-color: #2a2d3a; /* indigo4 */
+    color: #9fa4e2; /* indigo10 */
+}
+
+form input::placeholder {
+    color: #636aa8; /* indigo8 */
+}
+
+/* Boutons */
+form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #8189c4; /* indigo9 */
+    color: #191c24; /* texte sombre */
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+form button:hover {
+    background-color: #9fa4e2; /* indigo10 */
+}
+
+/* Liens */
+a {
+    color: #8189c4;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #9fa4e2;
+}
+
+/* Messages d'erreur */
+.error {
+    color: #ff6b6b;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* Actions (liens sous formulaire) */
+.actions {
+    margin-top: 20px;
+    text-align: center;
+}
+.actions a {
+    margin: 0 10px;
+}
