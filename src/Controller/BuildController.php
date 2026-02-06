@@ -17,7 +17,6 @@ public function new(Request $request, EntityManagerInterface $em): Response
 {
     $build = new Build();
     $form = $this->createForm(BuildType::class, $build);
-
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {

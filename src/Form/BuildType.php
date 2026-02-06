@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 class BuildType extends AbstractType
 {
@@ -28,29 +29,59 @@ class BuildType extends AbstractType
                 'label' => 'Arme',
             ])
             ->add('head', EntityType::class, [
-                'class' => Armor::class,
-                'choice_label' => 'name',
-                'label' => 'Tête',
+    'class' => Armor::class,
+    'choice_label' => 'name',
+    'label' => 'Tête',
+    'query_builder' => function (EntityRepository $er) {
+        return $er->createQueryBuilder('a')
+                  ->where('a.type = :type')
+                  ->setParameter('type', 'head')
+                  ->orderBy('a.name', 'ASC');
+            },
             ])
             ->add('chest', EntityType::class, [
-                'class' => Armor::class,
-                'choice_label' => 'name',
-                'label' => 'Poitrine',
+    'class' => Armor::class,
+    'choice_label' => 'name',
+    'label' => 'Poitrine',
+    'query_builder' => function (EntityRepository $er) {
+        return $er->createQueryBuilder('a')
+                  ->where('a.type = :type')
+                  ->setParameter('type', 'chest')
+                  ->orderBy('a.name', 'ASC');
+            },
             ])
             ->add('arms', EntityType::class, [
-                'class' => Armor::class,
-                'choice_label' => 'name',
-                'label' => 'Bras',
+    'class' => Armor::class,
+    'choice_label' => 'name',
+    'label' => 'Bras',
+    'query_builder' => function (EntityRepository $er) {
+        return $er->createQueryBuilder('a')
+                  ->where('a.type = :type')
+                  ->setParameter('type', 'arms')
+                  ->orderBy('a.name', 'ASC');
+            },
             ])
             ->add('waist', EntityType::class, [
-                'class' => Armor::class,
-                'choice_label' => 'name',
-                'label' => 'Taille',
+    'class' => Armor::class,
+    'choice_label' => 'name',
+    'label' => 'Taille',
+    'query_builder' => function (EntityRepository $er) {
+        return $er->createQueryBuilder('a')
+                  ->where('a.type = :type')
+                  ->setParameter('type', 'waist')
+                  ->orderBy('a.name', 'ASC');
+            },
             ])
             ->add('legs', EntityType::class, [
-                'class' => Armor::class,
-                'choice_label' => 'name',
-                'label' => 'Jambes',
+    'class' => Armor::class,
+    'choice_label' => 'name',
+    'label' => 'Jambes',
+    'query_builder' => function (EntityRepository $er) {
+        return $er->createQueryBuilder('a')
+                  ->where('a.type = :type')
+                  ->setParameter('type', 'legs')
+                  ->orderBy('a.name', 'ASC');
+            },
             ])
             ->add('charm', EntityType::class, [
                 'class' => Charm::class,
@@ -71,6 +102,7 @@ class BuildType extends AbstractType
                 'required' => false,
             ])
         ;
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)
