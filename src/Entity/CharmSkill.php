@@ -21,6 +21,9 @@ class CharmSkill
     #[ORM\JoinColumn(nullable: false)]
     private ?Skill $skill = null;
 
+    #[ORM\Column]
+    private ?int $level = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +49,18 @@ class CharmSkill
     public function setSkill(?Skill $skill): static
     {
         $this->skill = $skill;
+
+        return $this;
+    }
+
+    public function getLevel(): ?int
+    {
+        return $this->level;
+    }
+
+    public function setLevel(int $level): static
+    {
+        $this->level = $level;
 
         return $this;
     }
