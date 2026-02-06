@@ -17,6 +17,10 @@ class CharmSkill
     #[ORM\JoinColumn(nullable: false)]
     private ?Charm $charm = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Skill $skill = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +34,18 @@ class CharmSkill
     public function setCharm(?Charm $charm): static
     {
         $this->charm = $charm;
+
+        return $this;
+    }
+
+    public function getSkill(): ?Skill
+    {
+        return $this->skill;
+    }
+
+    public function setSkill(?Skill $skill): static
+    {
+        $this->skill = $skill;
 
         return $this;
     }
