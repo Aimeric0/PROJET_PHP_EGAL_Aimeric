@@ -24,14 +24,6 @@ class Charm
     #[ORM\Column]
     private ?int $rarity = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?ArmorSkill $CharmSkill = null;
-
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Skill $skill = null;
-
     /**
      * @var Collection<int, CharmSkill>
      */
@@ -80,30 +72,6 @@ class Charm
     public function setRarity(int $rarity): static
     {
         $this->rarity = $rarity;
-
-        return $this;
-    }
-
-    public function getCharmSkill(): ?ArmorSkill
-    {
-        return $this->CharmSkill;
-    }
-
-    public function setCharmSkill(?ArmorSkill $CharmSkill): static
-    {
-        $this->CharmSkill = $CharmSkill;
-
-        return $this;
-    }
-
-    public function getSkill(): ?Skill
-    {
-        return $this->skill;
-    }
-
-    public function setSkill(?Skill $skill): static
-    {
-        $this->skill = $skill;
 
         return $this;
     }
