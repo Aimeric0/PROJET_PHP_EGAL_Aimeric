@@ -38,6 +38,9 @@ class Build
     #[ORM\ManyToOne]
     private ?Armor $head = null;
 
+    #[ORM\ManyToOne]
+    private ?Charm $charm = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Build
     public function setHead(?Armor $head): static
     {
         $this->head = $head;
+
+        return $this;
+    }
+
+    public function getCharm(): ?Charm
+    {
+        return $this->charm;
+    }
+
+    public function setCharm(?Charm $charm): static
+    {
+        $this->charm = $charm;
 
         return $this;
     }
