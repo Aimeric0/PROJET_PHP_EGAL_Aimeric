@@ -6,9 +6,15 @@ use App\Entity\Armor;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Armor>
- */
+// src/Repository/ArmorRepository.php
+
+namespace App\Repository;
+
+use App\Entity\Armor;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
+
 class ArmorRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -16,28 +22,15 @@ class ArmorRepository extends ServiceEntityRepository
         parent::__construct($registry, Armor::class);
     }
 
-    //    /**
-    //     * @return Armor[] Returns an array of Armor objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Armor
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * Retourne un QueryBuilder filtré par type d'armure
+     * Utilisé pour les formulaires
+     */
+    public function findByTypeQueryBuilder(string $type): QueryBuilder
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.type = :type')
+            ->setParameter('type', $type)
+            ->orderBy('a.name', 'ASC'); // Tri alphabétique pour faciliter la recherche
+    }
 }
