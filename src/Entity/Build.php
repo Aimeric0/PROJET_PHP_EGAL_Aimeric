@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BuildRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BuildRepository::class)]
@@ -40,6 +42,17 @@ class Build
 
     #[ORM\ManyToOne]
     private ?Charm $charm = null;
+
+    /**
+     * @var Collection<int, BuildDecoration>
+     */
+    #[ORM\OneToMany(targetEntity: BuildDecoration::class, mappedBy: 'build')]
+    private Collection $buildDecorations;
+
+    public function __construct()
+    {
+        $this->buildDecorations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +163,36 @@ class Build
     public function setCharm(?Charm $charm): static
     {
         $this->charm = $charm;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BuildDecoration>
+     */
+    public function getBuildDecorations(): Collection
+    {
+        return $this->buildDecorations;
+    }
+
+    public function addBuildDecoration(BuildDecoration $buildDecoration): static
+    {
+        if (!$this->buildDecorations->contains($buildDecoration)) {
+            $this->buildDecorations->add($buildDecoration);
+            $buildDecoration->setBuild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBuildDecoration(BuildDecoration $buildDecoration): static
+    {
+        if ($this->buildDecorations->removeElement($buildDecoration)) {
+            // set the owning side to null (unless already changed)
+            if ($buildDecoration->getBuild() === $this) {
+                $buildDecoration->setBuild(null);
+            }
+        }
 
         return $this;
     }
