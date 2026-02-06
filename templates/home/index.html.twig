@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 px-4">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-indigo-600 dark:text-indigo-400 text-center">
+        Bienvenue sur BuildMHWilds 🚀
+    </h1>
+
+    <p class="text-lg md:text-xl mb-8 text-center max-w-xl">
+        Créez vos builds pour Monster Hunter Wilds et explorez toutes les combinaisons d'armes, armures, charms et décorations !
+    </p>
+
+    <div class="flex flex-col md:flex-row gap-4">
+<div class="actions">
+    <a href="{{ path('app_login') }}">Se connecter</a>
+    <a href="{{ path('app_register') }}">Créer un compte</a>
+    <a href="{{ path('build_new') }}" class="build">Créer un build</a>
+</div>
+    </div>
+</div>
+{% endblock %}

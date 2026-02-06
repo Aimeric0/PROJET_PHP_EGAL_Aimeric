@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un Build{% endblock %}
+
+{% block body %}
+<h1 class="text-2xl text-center mb-6">Créer un Build</h1>
+
+{% for message in app.flashes('success') %}
+    <div class="bg-green-600 text-white p-3 rounded mb-4">{{ message }}</div>
+{% endfor %}
+
+{{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.weapon) }}
+    {{ form_row(form.head) }}
+    {{ form_row(form.chest) }}
+    {{ form_row(form.arms) }}
+    {{ form_row(form.waist) }}
+    {{ form_row(form.legs) }}
+    {{ form_row(form.charm) }}
+    {{ form_row(form.buildDecorations) }}
+    <button type="submit" class="w-full p-3 bg-indigo-700 text-white rounded hover:bg-indigo-600">
+        Créer le Build
+    </button>
+{{ form_end(form) }}
+{% endblock %}
