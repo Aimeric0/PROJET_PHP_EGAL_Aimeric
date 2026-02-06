@@ -22,6 +22,9 @@ class Weapon
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $slots = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Weapon
     public function setType(string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getSlots(): ?array
+    {
+        return $this->slots;
+    }
+
+    public function setSlots(?array $slots): static
+    {
+        $this->slots = $slots;
 
         return $this;
     }
