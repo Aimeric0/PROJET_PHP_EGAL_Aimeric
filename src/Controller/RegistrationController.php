@@ -20,30 +20,49 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $passwordHasher,
         EntityManagerInterface $em,
         CsrfTokenManagerInterface $csrfTokenManager
-        ): Response {
-    $csrfToken = $csrfTokenManager->getToken('register_form')->getValue();
+    ): Response {
+        
+        
+        if ($request->isMethod('POST')) {
 
-    if ($request->isMethod('POST')) {
-        $submittedToken = $request->request->get('_csrf_token');
+            $submittedToken = $request->request->get('_csrf_token');
 
-        if (!$csrfTokenManager->isTokenValid(new CsrfToken('register_form', $submittedToken))) {
-            throw $this->createAccessDeniedException('Invalid CSRF token.');
+            if (!$this->isCsrfTokenValid('register_form', $submittedToken)) {
+                $this->addFlash('error', 'Token de sécurité invalide.');
+                return $this->redirectToRoute('app_register');
+            }
+
+            $email = $request->request->get('email');
+            $plainPassword = $request->request->get('password');
+
+            if (empty($email) || empty($plainPassword)) {
+                $this->addFlash('error', 'Veuillez remplir tous les champs.');
+                return $this->redirectToRoute('app_register');
+            }
+
+            $user = new User();
+            $user->setEmail($email);
+            $user->setRoles(['ROLE_USER']); 
+            
+            $user->setPassword(
+                $passwordHasher->hashPassword($user, $plainPassword)
+            );
+
+            try {
+                $em->persist($user);
+                $em->flush();
+                $this->addFlash('success', 'Compte créé ! Connectez-vous.');
+                return $this->redirectToRoute('app_login');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Erreur lors de l\'inscription (Email déjà pris ?)');
+            }
         }
 
-        $user = new User();
-        $user->setEmail($request->request->get('email'));
-        $user->setPassword(
-            $passwordHasher->hashPassword($user, $request->request->get('password'))
-        );
+        $csrfToken = $csrfTokenManager->getToken('register_form')->getValue();
 
-        $em->persist($user);
-        $em->flush();
-
-        return $this->redirectToRoute('app_login');
+        return $this->render('registration/register.html.twig', [
+            'csrf_token' => $csrfToken
+        ]);
     }
 
-    return $this->render('registration/register.html.twig', [
-        'csrf_token' => $csrfToken
-    ]);
-}
 }

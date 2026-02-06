@@ -13,18 +13,24 @@ security:
 
     firewalls:
         dev:
-            # Ensure dev tools and static assets are always allowed
-            pattern: ^/(_profiler|_wdt|assets|build)/
+            # On autorise tous les outils de dev et les assets (css, js, images)
+            pattern: ^/(_(profiler|wdt)|css|images|js|assets)/
             security: false
+
         main:
             lazy: true
             provider: app_user_provider
 
-            # Activate different ways to authenticate:
-            # https://symfony.com/doc/current/security.html#the-firewall
+            form_login:
+                login_path: app_login 
+                check_path: app_login  
+                enable_csrf: true  
+                default_target_path: app_home 
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            # AJOUT INDISPENSABLE POUR LA DÉCONNEXION
+            logout:
+                path: app_logout
+                target: app_home
 
     # Note: Only the *first* matching rule is applied
     access_control:

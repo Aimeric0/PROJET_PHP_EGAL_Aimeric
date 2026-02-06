@@ -5,13 +5,10 @@
 {% block body %}
     <h1>Créer un compte</h1>
 
-<form method="post" action="{{ path('app_register') }}">
-    <label>Email :</label>
+<form method="post">
     <input type="email" name="email" required>
-
-    <label>Mot de passe :</label>
     <input type="password" name="password" required>
-
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
     <button type="submit">S'inscrire</button>
 </form>
 {% endblock %}
