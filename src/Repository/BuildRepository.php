@@ -22,9 +22,7 @@ class BuildRepository extends ServiceEntityRepository
         parent::__construct($registry, Build::class);
     }
 
-    /**
-     * Méthode pour sauvegarder ou mettre à jour un build
-     */
+
     public function save(Build $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -34,9 +32,6 @@ class BuildRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * Méthode pour supprimer un build
-     */
     public function remove(Build $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -53,16 +48,13 @@ class BuildRepository extends ServiceEntityRepository
     public function findLatestBuilds(int $limit = 10): array
     {
         return $this->createQueryBuilder('b')
-            ->orderBy('b.id', 'DESC') // Ou une colonne 'createdAt' si tu en as une
+            ->orderBy('b.id', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
     }
 
-    /**
-     * Fonction avancée : Trouver tous les builds qui utilisent une pièce d'armure spécifique
-     * Très utile pour une page "Détail de l'armure" -> "Builds utilisant cet objet"
-     */
+
     public function findBuildsContainingArmor(Armor $armor): array
     {
         return $this->createQueryBuilder('b')

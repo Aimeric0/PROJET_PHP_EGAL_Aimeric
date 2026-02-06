@@ -20,12 +20,13 @@ public function new(Request $request, EntityManagerInterface $em): Response
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+        $buildRepository->save($build, true);
         $em->persist($build);
         $em->flush();
 
         $this->addFlash('success', 'Build créé avec succès !');
 
-        return $this->redirectToRoute('build_new');
+        return $this->redirectToRoute('app_build_index');
     }
 
     return $this->render('build_controller_php/index.html.twig', [

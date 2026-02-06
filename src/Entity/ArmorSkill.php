@@ -19,7 +19,7 @@ class ArmorSkill
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Skill $skil = null;
+    private ?Skill $skill = null;
 
     #[ORM\Column]
     private ?int $level = null;
@@ -41,14 +41,14 @@ class ArmorSkill
         return $this;
     }
 
-    public function getSkil(): ?Skill
+    public function getSkill(): ?Skill
     {
-        return $this->skil;
+        return $this->skill;
     }
 
-    public function setSkil(?Skill $skil): static
+    public function setSkill(?Skill $skill): static
     {
-        $this->skil = $skil;
+        $this->skill = $skill;
 
         return $this;
     }
